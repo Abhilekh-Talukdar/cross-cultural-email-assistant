@@ -6,24 +6,6 @@ An AI-powered web application that rewrites emails to align with the communicati
 
 Navigating cross-cultural communication can be challenging. This tool helps users adapt their emails to be more effective and appropriate when communicating with individuals from different cultural backgrounds. Users input their original email, select the target culture, and optionally specify a tone emphasis. The application then leverages a Large Language Model (LLM) via the OpenAI API to rewrite the email and provides notes explaining the cultural adaptations made.
 
-## Features
-
-* **Email Input:** Text areas for original email subject and body.
-* **Target Culture Selection:** Dropdown menu to choose the recipient's culture (e.g., Japan, U.S., U.K., France, India, Germany).
-* **Tone Emphasis (Optional):** Select desired emphasis (Clarity, Formality, Urgency, Respect).
-* **AI-Powered Rewriting:** Uses OpenAI's `gpt-4o-mini` (or other configured model) to rewrite the email based on cultural guidance.
-* **Output Display:** Shows the rewritten subject and body clearly.
-* **Cultural Notes:** Provides explanations for the changes made, highlighting cultural considerations.
-* **Responsive UI:** Frontend designed to work on different screen sizes.
-
-## Tech Stack
-
-* **Frontend:** React (with TypeScript), CSS Modules (or TailwindCSS), Axios
-* **Backend:** Python, FastAPI, Uvicorn
-* **AI Model:** OpenAI API (`gpt-4o-mini` or other GPT models)
-* **Web Server/Proxy (Deployment):** Nginx
-* **Process Management (Deployment):** systemd
-
 ## Architecture Overview
 
 The application follows a standard client-server architecture:
@@ -66,3 +48,21 @@ graph LR
     style D fill:#FFF7E0,stroke:#FBBC04,stroke-width:1px,color:#333
     style E fill:#F1F3F4,stroke:#5F6368,stroke-width:1px,color:#3c4043
 ```
+
+## Features
+
+* **Email Input:** Text areas for original email subject and body.
+* **Target Culture Selection:** Dropdown menu to choose the recipient's culture (e.g., Japan, U.S., U.K., France, India, Germany).
+* **Tone Emphasis (Optional):** Select desired emphasis (Clarity, Formality, Urgency, Respect).
+* **AI-Powered Rewriting:** Uses OpenAI's `gpt-4o-mini` (or other configured model) to rewrite the email based on cultural guidance.
+* **Output Display:** Shows the rewritten subject and body clearly.
+* **Cultural Notes:** Provides explanations for the changes made, highlighting cultural considerations.
+* **Responsive UI:** Frontend designed to work on different screen sizes.
+
+## Tech Stack
+
+* **Frontend:** React (with TypeScript), CSS Modules (or TailwindCSS), Axios
+* **Backend:** Python, FastAPI, Uvicorn
+* **AI Model:** OpenAI API (`gpt-4o-mini` or other GPT models)
+* **Web Server/Proxy (Deployment):** Nginx
+* **Process Management (Deployment):** systemd
