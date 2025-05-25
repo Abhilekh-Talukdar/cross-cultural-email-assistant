@@ -61,8 +61,8 @@ graph LR
 
 ## Tech Stack
 
-* **Frontend:** React (with TypeScript), CSS Modules (or TailwindCSS), Axios
+* **Frontend:** React (with TypeScript), CSS Modules, Axios
 * **Backend:** Python, FastAPI, Uvicorn
-* **AI Model:** OpenAI API (`gpt-4o-mini` or other GPT models)
+* **AI Model:** OpenAI API (`gpt-4o-mini`)
 * **Web Server/Proxy (Deployment):** Nginx
 * **Process Management (Deployment):** systemd
