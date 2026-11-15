@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from openai import OpenAI
 from dotenv import load_dotenv
+from response_parser import parse_rewrite_response
 
 # Load environment variables from .env file
 load_dotenv()
@@ -109,19 +110,14 @@ async def rewrite_email(email_input: EmailInput):
         )
 
         content = response.choices[0].message.content
-
-        # --- Parse the LLM Output ---
-        # This parsing relies on the specific format requested in the prompt.
-        subject_start = content.find("### Rewritten Subject ###") + len("### Rewritten Subject ###")
-        body_start = content.find("### Rewritten Body ###")
-        notes_start = content.find("### Cultural Notes ###")
-
-        if subject_start == -1 or body_start == -1 or notes_start == -1:
-             raise ValueError("LLM response did not follow the expected format.")
-
-        rewritten_subject = content[subject_start:body_start].strip()
-        rewritten_body = content[body_start + len("### Rewritten Body ###"):notes_start].strip()
-        cultural_notes = content[notes_start + len("### Cultural Notes ###"):].strip()
+        try:
+            rewritten_subject, rewritten_body, cultural_notes = parse_rewrite_response(content)
+        except ValueError as error:
+            print(f"Invalid response format from OpenAI: {error}")
+            raise HTTPException(
+                status_code=502,
+                detail="The AI service returned an invalid rewrite response. Please try again.",
+            ) from error
 
         return RewriteOutput(
             rewritten_subject=rewritten_subject,
@@ -129,9 +125,14 @@ async def rewrite_email(email_input: EmailInput):
             cultural_notes=cultural_notes
         )
 
-    except Exception as e:
-        print(f"Error interacting with OpenAI or parsing response: {e}") # Log error server-side
-        raise HTTPException(status_code=500, detail=f"Failed to rewrite email: {str(e)}")
+    except HTTPException:
+        raise
+    except Exception as error:
+        print(f"Error interacting with OpenAI: {error}") # Log error server-side
+        raise HTTPException(
+            status_code=502,
+            detail="The rewrite service is temporarily unavailable. Please try again.",
+        ) from error
 
 # --- Root Endpoint (Optional - for testing) ---
 @app.get("/")
