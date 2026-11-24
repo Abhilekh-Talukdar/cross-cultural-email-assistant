@@ -40,6 +40,12 @@ graph LR
     subgraph External Services
         E
     end
+
+    style A fill:#E8F0FE,stroke:#4285F4,stroke-width:1px,color:#174ea6
+    style B fill:#E6F4EA,stroke:#34A853,stroke-width:1px,color:#137333
+    style C fill:#FCE8E6,stroke:#EA4335,stroke-width:1px,color:#b31412
+    style D fill:#FFF7E0,stroke:#FBBC04,stroke-width:1px,color:#333
+    style E fill:#F1F3F4,stroke:#5F6368,stroke-width:1px,color:#3c4043
 ```
 
 ## Features
