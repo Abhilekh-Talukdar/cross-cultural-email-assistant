@@ -40,13 +40,6 @@ graph LR
     subgraph External Services
         E
     end
-
-    %% Styling
-    style A fill:#E8F0FE,stroke:#4285F4,stroke-width:1px,color:#174ea6
-    style B fill:#E6F4EA,stroke:#34A853,stroke-width:1px,color:#137333
-    style C fill:#FCE8E6,stroke:#EA4335,stroke-width:1px,color:#b31412
-    style D fill:#FFF7E0,stroke:#FBBC04,stroke-width:1px,color:#333
-    style E fill:#F1F3F4,stroke:#5F6368,stroke-width:1px,color:#3c4043
 ```
 
 ## Features
@@ -58,6 +51,17 @@ graph LR
 * **Output Display:** Shows the rewritten subject and body clearly.
 * **Cultural Notes:** Provides explanations for the changes made, highlighting cultural considerations.
 * **Responsive UI:** Frontend designed to work on different screen sizes.
+
+## API input limits
+
+The `POST /rewrite` request validates text lengths before the input is used to build an OpenAI prompt:
+
+- Subject: 1–500 characters.
+- Email body: 1–20,000 characters.
+- Target culture: 1–50 characters.
+- Optional tone emphasis: 1–200 characters when supplied.
+
+Empty required fields and values beyond these limits receive FastAPI's standard HTTP 422 validation response. The limits bound prompt input and reduce unexpectedly large model requests; they are not a substitute for an upstream HTTP request-body size limit.
 
 ## Tech Stack
 
