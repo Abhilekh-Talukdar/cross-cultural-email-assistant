@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from openai import OpenAI
 from dotenv import load_dotenv
+from input_models import EmailInput
 from response_parser import parse_rewrite_response
 
 # Load environment variables from .env file
@@ -36,12 +37,6 @@ app.add_middleware(
 )
 
 # --- Request and Response Models (using Pydantic) ---
-class EmailInput(BaseModel):
-    subject: str
-    body: str
-    target_culture: str
-    tone_emphasis: str | None = None # Optional tone
-
 class RewriteOutput(BaseModel):
     rewritten_subject: str
     rewritten_body: str
